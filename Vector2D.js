@@ -1,4 +1,4 @@
-define([], function(){
+  define(function(){
 	
 	var Vector2D = function (x, y) {
 		this.x = x;	
@@ -43,20 +43,53 @@ define([], function(){
 		return Math.sqrt ( (this.x * this.x) + (this.y * this.y) );
 	};
 
-	Vector2D.prototype.setLength = function (length) {
+	Vector2D.prototype.setLength = function (newLength) {
+		var currentLength = this.getLength(),
+			changeFactor = (newLength - currentLength) / currentLength;
 
+		this.scale(changeFactor);
+	};
 
+	Vector2D.prototype.getAngle = function () {	
+		var angle = Math.atan2(this.y, this.x);
+		return this.toDegrees(angle);	
+	};
+
+	Vector2D.prototype.setAngle = function (degrees) {
+		var length = this.getLength(),
+			radians = this.toRadians(degrees);
+		this.x = length * Math.cos(radians);
+		this.y = length * Math.sin(radians);
 
 	};
 
-	Vector2D.prototype.getAngleInRadians = function () {		
-
-		//return Math.atan(this.y / this.x);
-		return Math.atan2(this.y, this.x);
-
+	Vector3D.prototype.getAngleFromOriginVector = function (Vector2D) {	
+		
 	};
 
-	Vector2D.prototype.setAngle = function () {
+	Vector2D.prototype.rotate = function (degrees) {
+		var angle = this.getAngle() + degrees;			
+		setAngle(angle);
+	};
+
+	Vector2D.prototype.dot = function (vector2D) {
+		return this.x * vector2D.x + this.y * vector2D.y;		
+	};
+
+	Vector2D.prototype.isPerpendicularTo = function (vector2D) {
+		return (this.dot(vector2D) == 0);
+	};
+
+	Vector2D.prototype.getNormal = function () {
+		return new Vector2D(-this.y, this.x);
+	};
+
+	Vector2D.prototype.toDegrees = function (radians) {
+		return radians * (180 / Math.PI);
+	};
+
+	Vector2D.prototype.toRadians = function (degrees) {
+		return degrees * (Math.PI / 180);
 	};
 
 	return Vector2D;
