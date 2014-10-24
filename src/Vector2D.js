@@ -63,7 +63,7 @@
 
 	};
 
-	Vector3D.prototype.getAngleFromOriginVector = function (Vector2D) {	
+	Vector2D.prototype.getAngleFromOriginVector = function (Vector2D) {	
 		
 	};
 
